@@ -2,7 +2,10 @@ package and.fast.itemdecorationgroup;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
+import android.text.TextPaint;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -12,6 +15,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
+
+    private TextPaint mTextPaint;
 
     private int mItemSize; // 条目大小
 
@@ -23,14 +28,22 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
 
     public AlbumItemDecoration(RecyclerView recyclerView) {
         Resources resources = recyclerView.getContext().getResources();
-        timelineSpace = resources.getDimensionPixelSize(R.dimen.timeline_space);
         horizontalSpace = resources.getDimensionPixelSize(R.dimen.horizontal_space);
+        timelineSpace = (recyclerView.getPaddingLeft() + resources.getDimensionPixelSize(R.dimen.timeline_space));
 
         // 设置边距
-        recyclerView.setPadding((recyclerView.getPaddingLeft() + timelineSpace), recyclerView.getPaddingTop(),
-                recyclerView.getPaddingRight(), recyclerView.getPaddingBottom());
-    }
+        recyclerView.setPadding(
+                timelineSpace,
+                recyclerView.getPaddingTop(),
+                recyclerView.getPaddingRight() - horizontalSpace,
+                recyclerView.getPaddingBottom()
+        );
 
+        // 画毛
+        mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+        mTextPaint.setColor(Color.BLACK);
+        mTextPaint.setTextSize(54);
+    }
 
     @Override
     public void getItemOffsets(
@@ -38,11 +51,7 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
 
         resetItemViewSize(parent, view);
 
-        // 条目间距
         int position = parent.getChildLayoutPosition(view);
-        if ((mSpanCount - (position % mSpanCount)) != 1) {
-            outRect.right = horizontalSpace;
-        }
 
         outRect.top = horizontalSpace;
     }
@@ -52,16 +61,17 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
         RecyclerView.Adapter adapter = parent.getAdapter();
 
         if (adapter instanceof Timeline) {
-
             Timeline timeline = (Timeline) adapter;
             int childCount = parent.getChildCount();
 
             for (int index = 0; index < childCount; index++) {
+                View view = parent.getChildAt(index);
+                int position = parent.getChildLayoutPosition(view);
+                long timestamp = timeline.getTimestamp(position);
 
-                if (mLastTimestamp != timeline.getTimestamp(index)) {
-                    mLastTimestamp = timeline.getTimestamp(index);
-                    int position = parent.getChildLayoutPosition(parent.getChildAt(index));
-                    drawTimeline(c, position);
+                if (mLastTimestamp != timestamp) {
+                    mLastTimestamp = timestamp;
+                    drawTimeline(c, view, position);
                 }
             }
 
@@ -71,8 +81,16 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     // 绘制时间线
-    private void drawTimeline(Canvas canvas, int position) {
+    private void drawTimeline(Canvas canvas, View view, int position) {
+        String text = String.valueOf(position);
+        float v = mTextPaint.measureText(text);
 
+        canvas.drawText(
+                text,
+                view.getX() - timelineSpace / 2,
+                view.getY(),
+                mTextPaint
+        );
     }
 
     // 重置条目大小
@@ -85,7 +103,7 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
         }
 
         ViewGroup.LayoutParams lp = view.getLayoutParams();
-        lp.height = lp.width = mItemSize;
+        lp.height = lp.width = mItemSize - horizontalSpace;
         view.setLayoutParams(lp);
     }
 

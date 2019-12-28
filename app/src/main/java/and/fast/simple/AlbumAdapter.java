@@ -26,7 +26,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return 100;
+        return 20;
     }
 
     @Override
