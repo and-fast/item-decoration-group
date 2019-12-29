@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.text.TextPaint;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -39,10 +40,41 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
                 recyclerView.getPaddingBottom()
         );
 
+        init(recyclerView);
+
         // 画毛
         mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setColor(Color.BLACK);
         mTextPaint.setTextSize(54);
+    }
+
+    // 设置填充
+    private void init(final RecyclerView recyclerView) {
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
+        mSpanCount = gridLayoutManager.getSpanCount();
+
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+
+            @Override
+            public int getSpanSize(int position) {
+                RecyclerView.Adapter adapter = recyclerView.getAdapter();
+                Timeline timeline = (Timeline) adapter;
+                long timestamp = timeline.getTimestamp(position);
+
+                if (position < adapter.getItemCount() - 1) {
+                    long nextTimestamp = timeline.getTimestamp(position + 1);
+                    if (timestamp != nextTimestamp) {
+                        return mSpanCount;
+                    }
+                }
+
+                return 1;
+            }
+
+        });
+
+        // throw new ClassCastException("RecyclerView.LayoutManager必须是GridLayoutManager");
     }
 
     @Override
@@ -51,7 +83,7 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
 
         resetItemViewSize(parent, view);
 
-        int position = parent.getChildLayoutPosition(view);
+        //int position = parent.getChildLayoutPosition(view);
 
         outRect.top = horizontalSpace;
     }
@@ -82,13 +114,16 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
 
     // 绘制时间线
     private void drawTimeline(Canvas canvas, View view, int position) {
-        String text = String.valueOf(position);
-        float v = mTextPaint.measureText(text);
+        // 文字宽高
+        float textWidth = mTextPaint.measureText(position + "月");
+        Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
+        float textHeight = fontMetrics.descent - fontMetrics.ascent;
 
+        // 绘制文字
         canvas.drawText(
-                text,
-                view.getX() - timelineSpace / 2,
-                view.getY(),
+                position + "月",
+                view.getX() - timelineSpace / 2 - textWidth / 2,
+                view.getY() + textHeight,
                 mTextPaint
         );
     }
@@ -97,8 +132,6 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
     private void resetItemViewSize(RecyclerView parent, View view) {
         if (mItemSize == 0) {
             int parentWidth = parent.getWidth() - (parent.getPaddingLeft() + parent.getPaddingRight());
-            GridLayoutManager layoutManager = (GridLayoutManager) parent.getLayoutManager();
-            mSpanCount = layoutManager.getSpanCount();
             mItemSize = parentWidth / mSpanCount;
         }
 
