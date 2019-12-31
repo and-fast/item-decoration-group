@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="year_text_size">10sp</dimen>
+    <dimen name="month_text_size">16sp</dimen>
+
     <dimen name="timeline_space">36dp</dimen>
     <dimen name="horizontal_space">4dp</dimen>
+    <dimen name="month_year_vertical_space">2dp</dimen>
 </resources>

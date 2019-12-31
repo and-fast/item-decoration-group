@@ -1,9 +1,6 @@
 package and.fast.itemdecorationgroup.model;
 
-/**
- * Desc: 时间线
- */
-public interface Timeline {
+public interface TimestampProvider {
 
     long getTimestamp(int position);
 
