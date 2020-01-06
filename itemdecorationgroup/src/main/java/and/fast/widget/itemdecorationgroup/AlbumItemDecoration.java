@@ -1,4 +1,4 @@
-package and.fast.itemdecorationgroup;
+package and.fast.widget.itemdecorationgroup;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -13,21 +13,23 @@ import android.view.ViewGroup;
 import java.util.Calendar;
 import java.util.Date;
 
-import and.fast.itemdecorationgroup.model.TimestampProvider;
+import and.fast.widget.itemdecorationgroup.model.TimestampProvider;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
 
+    // 画笔
     private TextPaint mMonthTextPaint, mYearTextPaint;
 
-    private int mItemSize; // 条目大小
+    // 条目大小
+    private int mItemSize;
 
-    private int mSpanCount; // 横向数量
-
+    // 时间
     private long mLastTimestamp;
 
+    // 间距
     private int timelineSpace, horizontalSpace, monthYearVerticalSpace;
 
     public AlbumItemDecoration(RecyclerView recyclerView) {
@@ -44,6 +46,10 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
                 recyclerView.getPaddingBottom()
         );
 
+        // 设置 SpanSizeLookup
+        GridLayoutManager layoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
+        layoutManager.setSpanSizeLookup(new AlbumSpanSizeLookup(recyclerView));
+
         // 月份 文字画笔
         mMonthTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
         mMonthTextPaint.setColor(Color.parseColor("#333333"));
@@ -59,7 +65,6 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         resetItemViewSize(parent, view);
-
         outRect.top = horizontalSpace;
     }
 
@@ -129,8 +134,7 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
         if (mItemSize == 0) {
             int parentWidth = parent.getWidth() - (parent.getPaddingLeft() + parent.getPaddingRight());
             GridLayoutManager gridLayoutManager = (GridLayoutManager) parent.getLayoutManager();
-            mSpanCount = gridLayoutManager.getSpanCount();
-            mItemSize = parentWidth / mSpanCount;
+            mItemSize = parentWidth / gridLayoutManager.getSpanCount();
         }
 
         ViewGroup.LayoutParams lp = view.getLayoutParams();

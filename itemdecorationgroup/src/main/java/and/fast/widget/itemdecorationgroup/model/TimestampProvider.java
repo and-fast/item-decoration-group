@@ -1,4 +1,4 @@
-package and.fast.itemdecorationgroup.model;
+package and.fast.widget.itemdecorationgroup.model;
 
 public interface TimestampProvider {
 

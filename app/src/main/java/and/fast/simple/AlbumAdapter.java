@@ -10,7 +10,7 @@ import android.widget.Toast;
 import java.util.Arrays;
 import java.util.List;
 
-import and.fast.itemdecorationgroup.model.TimestampProvider;
+import and.fast.widget.itemdecorationgroup.model.TimestampProvider;
 import and.fast.simple.entities.ImageEntity;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
