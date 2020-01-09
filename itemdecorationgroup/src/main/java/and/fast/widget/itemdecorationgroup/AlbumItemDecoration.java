@@ -26,9 +26,6 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
     // 条目大小
     private int mItemSize;
 
-    // 时间
-    private long mLastTimestamp;
-
     // 间距
     private int timelineSpace, horizontalSpace, monthYearVerticalSpace;
 
@@ -81,9 +78,14 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
                 int position = parent.getChildLayoutPosition(view);
                 long timestamp = provider.getTimestamp(position);
 
-                if (mLastTimestamp != timestamp) {
-                    mLastTimestamp = timestamp;
-                    drawDate(c, view, timestamp);
+                if (position < adapter.getItemCount() - 1) {
+                    long nextTimestamp = provider.getTimestamp(position + 1);
+                    if (position == 0) {
+                        drawDate(c, view, timestamp);
+
+                    } else if (timestamp != nextTimestamp) {
+                        drawDate(c, parent.getChildAt(index + 1), nextTimestamp);
+                    }
                 }
             }
 
@@ -115,7 +117,7 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
         // 绘制年份文字
         Calendar nowCalendar = Calendar.getInstance();
         nowCalendar.setTime(new Date());
-        if (nowCalendar.get(Calendar.YEAR) != calendar.get(Calendar.YEAR)){
+        if (nowCalendar.get(Calendar.YEAR) != calendar.get(Calendar.YEAR)) {
             float yearTextWidth = mYearTextPaint.measureText(calendar.get(Calendar.YEAR) + "年");
             Paint.FontMetrics yearFontMetrics = mYearTextPaint.getFontMetrics();
             float yearTextHeight = yearFontMetrics.descent - yearFontMetrics.ascent;

@@ -18,22 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> implements TimestampProvider {
 
     private List<ImageEntity> mImageList = Arrays.asList(
-            new ImageEntity(1577772269000L,Color.GRAY),   // 2019-12-31
-            new ImageEntity(1575093869000L,Color.LTGRAY), // 2019-11-31
-            new ImageEntity(1575093869000L,Color.CYAN),
-            new ImageEntity(1575093869000L,Color.MAGENTA),
-            new ImageEntity(1575093869000L,Color.DKGRAY),
-            new ImageEntity(1569823469000L,Color.BLACK), // 2019-09-31
-            new ImageEntity(1535609069000L,Color.DKGRAY), // 2018-8-30
-            new ImageEntity(1535609069000L,Color.BLACK),
-            new ImageEntity(1535609069000L,Color.LTGRAY),
-            new ImageEntity(1535609069000L,Color.YELLOW),
-            new ImageEntity(1535609069000L,Color.BLACK),
-            new ImageEntity(1535609069000L,Color.CYAN),
-            new ImageEntity(1535609069000L,Color.DKGRAY),
-            new ImageEntity(1535609069000L,Color.MAGENTA),
-            new ImageEntity(1514613869000L,Color.BLACK),  // 2017-12-30
-            new ImageEntity(1514613869000L,Color.DKGRAY)
+            new ImageEntity(1577808000000L,Color.GRAY),   // 2020-01-01
+            new ImageEntity(1577808000000L,Color.DKGRAY),
+//            new ImageEntity(1569823469000L,Color.BLACK), // 2019-09-31
+            new ImageEntity(1577808000000L,Color.DKGRAY) // 2018-8-30
     );
 
     @NonNull
