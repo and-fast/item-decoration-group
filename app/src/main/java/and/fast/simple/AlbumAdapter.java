@@ -18,10 +18,41 @@ import androidx.recyclerview.widget.RecyclerView;
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> implements TimestampProvider {
 
     private List<ImageEntity> mImageList = Arrays.asList(
-            new ImageEntity(1577808000000L,Color.GRAY),   // 2020-01-01
-            new ImageEntity(1577808000000L,Color.DKGRAY),
-//            new ImageEntity(1569823469000L,Color.BLACK), // 2019-09-31
-            new ImageEntity(1577808000000L,Color.DKGRAY) // 2018-8-30
+            new ImageEntity(1577808000000L, Color.GRAY),   // 2020-01-01
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1577808000000L, Color.DKGRAY),
+            new ImageEntity(1569823469000L,Color.BLACK), // 2019-09-31
+            new ImageEntity(1577808000000L, Color.DKGRAY) // 2018-8-30
     );
 
     @NonNull
@@ -54,7 +85,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     }
 
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView mIvAlbum;
 
