@@ -96,38 +96,40 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
 
     // 绘制时间
     private void drawDate(Canvas canvas, View view, long timestamp) {
-        // 时间
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timestamp);
-        int month = calendar.get(Calendar.MONTH) + 1;
+        if (view != null) {
+            // 时间
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(timestamp);
+            int month = calendar.get(Calendar.MONTH) + 1;
 
-        // 文字宽高
-        float monthTextWidth = mMonthTextPaint.measureText(month + "月");
-        Paint.FontMetrics monthFontMetrics = mMonthTextPaint.getFontMetrics();
-        float monthTextHeight = monthFontMetrics.descent - monthFontMetrics.ascent;
+            // 文字宽高
+            float monthTextWidth = mMonthTextPaint.measureText(month + "月");
+            Paint.FontMetrics monthFontMetrics = mMonthTextPaint.getFontMetrics();
+            float monthTextHeight = monthFontMetrics.descent - monthFontMetrics.ascent;
 
-        // 绘制月份文字
-        canvas.drawText(
-                month + "月",
-                view.getX() - timelineSpace / 2 - monthTextWidth / 2,
-                view.getY() + monthTextHeight,
-                mMonthTextPaint
-        );
-
-        // 绘制年份文字
-        Calendar nowCalendar = Calendar.getInstance();
-        nowCalendar.setTime(new Date());
-        if (nowCalendar.get(Calendar.YEAR) != calendar.get(Calendar.YEAR)) {
-            float yearTextWidth = mYearTextPaint.measureText(calendar.get(Calendar.YEAR) + "年");
-            Paint.FontMetrics yearFontMetrics = mYearTextPaint.getFontMetrics();
-            float yearTextHeight = yearFontMetrics.descent - yearFontMetrics.ascent;
-
+            // 绘制月份文字
             canvas.drawText(
-                    calendar.get(Calendar.YEAR) + "年",
-                    view.getX() - timelineSpace / 2 - yearTextWidth / 2,
-                    view.getY() + yearTextHeight + monthTextHeight + monthYearVerticalSpace,
-                    mYearTextPaint
+                    month + "月",
+                    view.getX() - timelineSpace / 2 - monthTextWidth / 2,
+                    view.getY() + monthTextHeight,
+                    mMonthTextPaint
             );
+
+            // 绘制年份文字
+            Calendar nowCalendar = Calendar.getInstance();
+            nowCalendar.setTime(new Date());
+            if (nowCalendar.get(Calendar.YEAR) != calendar.get(Calendar.YEAR)) {
+                float yearTextWidth = mYearTextPaint.measureText(calendar.get(Calendar.YEAR) + "年");
+                Paint.FontMetrics yearFontMetrics = mYearTextPaint.getFontMetrics();
+                float yearTextHeight = yearFontMetrics.descent - yearFontMetrics.ascent;
+
+                canvas.drawText(
+                        calendar.get(Calendar.YEAR) + "年",
+                        view.getX() - timelineSpace / 2 - yearTextWidth / 2,
+                        view.getY() + yearTextHeight + monthTextHeight + monthYearVerticalSpace,
+                        mYearTextPaint
+                );
+            }
         }
     }
 
@@ -143,5 +145,4 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
         lp.height = lp.width = mItemSize - horizontalSpace;
         view.setLayoutParams(lp);
     }
-
 }
