@@ -6,8 +6,10 @@
     android:orientation="vertical"
    >
 
-    <View
-        android:background="#f00"
+
+    <Button
+        android:text="stop"
+        android:onClick="onStop"
         android:layout_width="match_parent"
         android:layout_height="100dp"/>
 

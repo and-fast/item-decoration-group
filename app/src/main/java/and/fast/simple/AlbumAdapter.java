@@ -1,62 +1,32 @@
 package and.fast.simple;
 
-import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-import and.fast.widget.itemdecorationgroup.model.TimestampProvider;
 import and.fast.simple.entities.ImageEntity;
+import and.fast.widget.itemdecorationgroup.model.TimestampProvider;
+import and.fast.widget.itemdecorationgroup.utils.SpanSizeSortUtil;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> implements TimestampProvider {
 
-    private List<ImageEntity> mImageList = Arrays.asList(
-            new ImageEntity(1577808000000L, Color.BLACK),
-            new ImageEntity(1577808000000L, Color.BLACK),
-            new ImageEntity(1577808000000L, Color.BLACK),
-            new ImageEntity(1577808000000L, Color.BLACK),
-            new ImageEntity(1577808000000L, Color.BLACK),
+    private List<ImageEntity> mImageList = new ArrayList<>();
 
-            // ...
-            new ImageEntity(1582188504000L, Color.DKGRAY),
-            new ImageEntity(1582188504000L, Color.DKGRAY),
-            new ImageEntity(1582188504000L, Color.DKGRAY),
-            new ImageEntity(1582188504000L, Color.DKGRAY),
-            new ImageEntity(1582188504000L, Color.DKGRAY),
-            new ImageEntity(1582188504000L, Color.DKGRAY),
-            new ImageEntity(1582188504000L, Color.DKGRAY),
+    AlbumAdapter() {
+        SpanSizeSortUtil.sort(3, mImageList);
+    }
 
-            // ...
-            new ImageEntity(1589964504000L, Color.GRAY),
-            new ImageEntity(1589964504000L, Color.GRAY),
-            new ImageEntity(1589964504000L, Color.GRAY),
-            new ImageEntity(1589964504000L, Color.GRAY),
-            new ImageEntity(1589964504000L, Color.GRAY),
-            new ImageEntity(1589964504000L, Color.GRAY),
-            new ImageEntity(1589964504000L, Color.GRAY),
-            new ImageEntity(1589964504000L, Color.GRAY),
-            new ImageEntity(1589964504000L, Color.GRAY),
-            new ImageEntity(1589964504000L, Color.GRAY),
-            new ImageEntity(1589964504000L, Color.GRAY),
-            new ImageEntity(1589964504000L, Color.GRAY),
-            new ImageEntity(1589964504000L, Color.GRAY),
-
-            // ...
-            new ImageEntity(1597913304000L, Color.LTGRAY),
-            new ImageEntity(1597913304000L, Color.LTGRAY),
-            new ImageEntity(1597913304000L, Color.LTGRAY),
-            new ImageEntity(1597913304000L, Color.LTGRAY),
-            new ImageEntity(1597913304000L, Color.LTGRAY),
-            new ImageEntity(1597913304000L, Color.LTGRAY),
-            new ImageEntity(1597913304000L, Color.LTGRAY)
-    );
+    public List<ImageEntity> getData() {
+        return mImageList;
+    }
 
     @NonNull
     @Override
@@ -67,13 +37,17 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull AlbumAdapter.ViewHolder holder, final int position) {
-        holder.mIvAlbum.setBackgroundColor(mImageList.get(position).getImageColor());
+        final ImageEntity item = mImageList.get(position);
+        holder.mIvAlbum.setBackgroundColor(item.getImageColor());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+                Log.i(getClass().getSimpleName(), item.getSpanSize() + ", " + position);
             }
+
         });
     }
 
@@ -85,6 +59,13 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     @Override
     public long getTimestamp(int position) {
         return mImageList.get(position).getTimestamp();
+    }
+
+    @Override
+    public int getSpanSize(int position) {
+        int spanSize = mImageList.get(position).getSpanSize();
+        Log.i(getClass().getSimpleName(), position + " :: " + spanSize);
+        return spanSize;
     }
 
 

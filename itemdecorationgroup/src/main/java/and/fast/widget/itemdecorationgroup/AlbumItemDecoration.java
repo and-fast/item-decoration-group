@@ -78,12 +78,19 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
                 int position = parent.getChildLayoutPosition(view);
                 long timestamp = provider.getTimestamp(position);
 
+                if (adapter.getItemCount() <= 1) {
+                    drawDate(c, view, timestamp);
+                    return;
+                }
+
                 if (position < adapter.getItemCount() - 1) {
                     long nextTimestamp = provider.getTimestamp(position + 1);
+
                     if (position == 0) {
                         drawDate(c, view, timestamp);
+                    }
 
-                    } else if (timestamp != nextTimestamp) {
+                    if (timestamp != nextTimestamp) {
                         drawDate(c, parent.getChildAt(index + 1), nextTimestamp);
                     }
                 }
