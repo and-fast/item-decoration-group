@@ -11,17 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import and.fast.simple.entities.ImageEntity;
-import and.fast.widget.itemdecorationgroup.model.TimestampProvider;
-import and.fast.widget.itemdecorationgroup.utils.SpanSizeSortUtil;
+import and.fast.widget.itemdecorationgroup.model.SpanSizeModel;
+import and.fast.widget.itemdecorationgroup.model.ModelProvider;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> implements TimestampProvider {
+public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> implements ModelProvider {
 
     private List<ImageEntity> mImageList = new ArrayList<>();
 
     AlbumAdapter() {
-        SpanSizeSortUtil.sort(3, mImageList);
+
     }
 
     public List<ImageEntity> getData() {
@@ -57,17 +57,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     }
 
     @Override
-    public long getTimestamp(int position) {
-        return mImageList.get(position).getTimestamp();
+    public List<? extends SpanSizeModel> getModels() {
+        return mImageList;
     }
-
-    @Override
-    public int getSpanSize(int position) {
-        int spanSize = mImageList.get(position).getSpanSize();
-        Log.i(getClass().getSimpleName(), position + " :: " + spanSize);
-        return spanSize;
-    }
-
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 

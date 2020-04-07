@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import java.util.Calendar;
 import java.util.Date;
 
-import and.fast.widget.itemdecorationgroup.model.TimestampProvider;
+import and.fast.widget.itemdecorationgroup.model.ModelProvider;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,14 +69,14 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
     public void onDrawOver(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         RecyclerView.Adapter adapter = parent.getAdapter();
 
-        if (adapter instanceof TimestampProvider) {
-            TimestampProvider provider = (TimestampProvider) adapter;
+        if (adapter instanceof ModelProvider) {
+            ModelProvider provider = (ModelProvider) adapter;
             int childCount = parent.getChildCount();
 
             for (int index = 0; index < childCount; index++) {
                 View view = parent.getChildAt(index);
                 int position = parent.getChildLayoutPosition(view);
-                long timestamp = provider.getTimestamp(position);
+                long timestamp = provider.getModels().get(position).getTimestamp();
 
                 if (adapter.getItemCount() <= 1) {
                     drawDate(c, view, timestamp);
@@ -84,7 +84,7 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
                 }
 
                 if (position < adapter.getItemCount() - 1) {
-                    long nextTimestamp = provider.getTimestamp(position + 1);
+                    long nextTimestamp = provider.getModels().get(position + 1).getTimestamp();
 
                     if (position == 0) {
                         drawDate(c, view, timestamp);
@@ -102,7 +102,7 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     // 绘制时间
-    private void drawDate(Canvas canvas, View view, long timestamp) {
+    protected void drawDate(Canvas canvas, View view, long timestamp) {
         if (view != null) {
             // 时间
             Calendar calendar = Calendar.getInstance();
