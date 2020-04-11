@@ -31,6 +31,11 @@ public class AlbumSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
 
             @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                onChanged();
+            }
+
+            @Override
             public void onChanged() {
                 arrangement(layoutManager.getSpanCount(), provider.getModels());
             }
