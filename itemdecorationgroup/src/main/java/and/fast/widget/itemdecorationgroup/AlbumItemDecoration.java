@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import and.fast.widget.itemdecorationgroup.model.ModelProvider;
+import and.fast.widget.itemdecorationgroup.model.SpanSizeModel;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -76,7 +77,9 @@ public class AlbumItemDecoration extends RecyclerView.ItemDecoration {
             for (int index = 0; index < childCount; index++) {
                 View view = parent.getChildAt(index);
                 int position = parent.getChildLayoutPosition(view);
-                long timestamp = provider.getModels().get(position).getTimestamp();
+
+                SpanSizeModel spanSizeModel = provider.getModels().get(position);
+                long timestamp = spanSizeModel.getTimestamp();
 
                 if (adapter.getItemCount() <= 1) {
                     drawDate(c, view, timestamp);

@@ -11,4 +11,12 @@
         android:layout_height="match_parent"
         tools:background="#ddd" />
 
+    <TextView
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </FrameLayout>

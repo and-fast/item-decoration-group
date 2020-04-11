@@ -9,23 +9,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class AlbumSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
 
-    private boolean initialized;
     private RecyclerView mRecyclerView;
 
     public AlbumSpanSizeLookup(RecyclerView recyclerView) {
         mRecyclerView = recyclerView;
+        registerDataObserver(recyclerView.getAdapter());
     }
 
     @Override
     public int getSpanSize(int position) {
         RecyclerView.Adapter adapter = mRecyclerView.getAdapter();
-        final ModelProvider provider = (ModelProvider) adapter;
-
-        if (!initialized) {
-            initialized = true;
-            registerDataObserver(adapter);
-        }
-
+        ModelProvider provider = (ModelProvider) adapter;
         return provider.getModels().get(position).getSpanSize();
     }
 
@@ -38,13 +32,14 @@ public class AlbumSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
 
             @Override
             public void onChanged() {
-                sort(layoutManager.getSpanCount(), provider.getModels());
+                arrangement(layoutManager.getSpanCount(), provider.getModels());
             }
 
         });
     }
 
-    private void sort(int spanCount, List<? extends SpanSizeModel> modelList) {
+
+    private void arrangement(int spanCount, List<? extends SpanSizeModel> modelList) {
         int column = 0, index = 0; // 当前行
 
         for (int i = 0; i < modelList.size() - 1; i++) {
