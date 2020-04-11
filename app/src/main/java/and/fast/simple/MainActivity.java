@@ -24,25 +24,25 @@ public class MainActivity extends AppCompatActivity {
 
             // 2020-01-01
             new ImageEntity(1577808000000L, Color.BLACK),
-//            new ImageEntity(1577808000000L, Color.BLACK),
-//            new ImageEntity(1577808000000L, Color.BLACK),
-//            new ImageEntity(1577808000000L, Color.BLACK),
+            new ImageEntity(1577808000000L, Color.BLACK),
+            new ImageEntity(1577808000000L, Color.BLACK),
+            new ImageEntity(1577808000000L, Color.BLACK),
 //            new ImageEntity(1577808000000L, Color.BLACK),
 
             // 2020-02-20
             new ImageEntity(1582188504000L, Color.DKGRAY),
-//            new ImageEntity(1582188504000L, Color.DKGRAY),
-//            new ImageEntity(1582188504000L, Color.DKGRAY),
-//            new ImageEntity(1582188504000L, Color.DKGRAY),
+            new ImageEntity(1582188504000L, Color.DKGRAY),
+            new ImageEntity(1582188504000L, Color.DKGRAY),
+            new ImageEntity(1582188504000L, Color.DKGRAY),
 //            new ImageEntity(1582188504000L, Color.DKGRAY),
 //            new ImageEntity(1582188504000L, Color.DKGRAY),
             new ImageEntity(1582188504000L, Color.DKGRAY),
 
             // 2020-05-20
 //            new ImageEntity(1589964504000L, Color.GRAY),
-//            new ImageEntity(1589964504000L, Color.GRAY),
-//            new ImageEntity(1589964504000L, Color.GRAY),
-//            new ImageEntity(1589964504000L, Color.GRAY),
+            new ImageEntity(1589964504000L, Color.GRAY),
+            new ImageEntity(1589964504000L, Color.GRAY),
+            new ImageEntity(1589964504000L, Color.GRAY),
 //            new ImageEntity(1589964504000L, Color.GRAY),
 //            new ImageEntity(1589964504000L, Color.GRAY),
             new ImageEntity(1589964504000L, Color.GRAY),
@@ -50,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
             // 2020-08-20
 //            new ImageEntity(1597913304000L, Color.LTGRAY),
 //            new ImageEntity(1597913304000L, Color.LTGRAY),
-//            new ImageEntity(1597913304000L, Color.LTGRAY),
-//            new ImageEntity(1597913304000L, Color.LTGRAY),
-//            new ImageEntity(1597913304000L, Color.LTGRAY),
+            new ImageEntity(1597913304000L, Color.LTGRAY),
+            new ImageEntity(1597913304000L, Color.LTGRAY),
+            new ImageEntity(1597913304000L, Color.LTGRAY),
 //            new ImageEntity(1597913304000L, Color.LTGRAY),
             new ImageEntity(1597913304000L, Color.LTGRAY)
     );
@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new AlbumItemDecoration(recyclerView));
         mAdapter = new AlbumAdapter();
         recyclerView.setAdapter(mAdapter);
