@@ -39,14 +39,13 @@ public class MainActivity extends AppCompatActivity {
         int index = new Random().nextInt(DataStore.sImageList.size());
         List<ImageEntity> list = new ArrayList<>();
 
-        //for (int i = index; i < DataStore.sImageList.size(); i++) {
-            ImageEntity entity = DataStore.sImageList.get(index);
+        for (int i = index; i < DataStore.sImageList.size(); i++) {
+            ImageEntity entity = DataStore.sImageList.get(i);
             list.add(new ImageEntity(entity.getTimestamp(), entity.getImageColor()));
-       // }
+        }
 
         int itemCount = mAdapter.getItemCount();
         mAdapter.getData().addAll(list);
-//        mAdapter.notifyDataSetChanged();
         mAdapter.notifyItemRangeInserted(itemCount, mAdapter.getItemCount());
         mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount());
     }
