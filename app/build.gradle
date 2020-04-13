@@ -26,6 +26,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
 
-    implementation project(path: ':itemdecorationgroup')
-//    implementation 'com.github.and-fast:item-decoration-group:0.1-beta2'
+    //implementation project(path: ':itemdecorationgroup')
+    implementation 'com.github.and-fast:item-decoration-group:0.1-alpha01'
 }
