@@ -32,9 +32,7 @@ public class ImageEntity implements SpanSizeModel {
     public long getTimestamp() {
         try {
 
-            long timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(createdAt).getTime();
-            String date = new SimpleDateFormat("yyyy-MM-dd").format(timestamp);
-            return new SimpleDateFormat("yyyy-MM-dd").parse(date).getTime();
+            return new SimpleDateFormat("yyyy-MM").parse(createdAt).getTime();
         } catch (ParseException e) {
             e.printStackTrace();
         }

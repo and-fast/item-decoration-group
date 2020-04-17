@@ -27,7 +27,7 @@ public class DataStore implements LifecycleObserver {
 
             @Override
             public void onFailure(Call<ImageListResponse> call, Throwable t) {
-
+                t.printStackTrace();
             }
 
         });
@@ -43,7 +43,7 @@ public class DataStore implements LifecycleObserver {
 
             @Override
             public void onFailure(Call<ImageListResponse> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
     }
