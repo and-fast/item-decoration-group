@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-   >
+    android:orientation="vertical">
 
-
-    <Button
-        android:text="添加数据"
-        android:onClick="onStop"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smart_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"/>
+        android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="15dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="3" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3"
+            tools:listitem="@layout/recycle_item_album" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 
 </LinearLayout>

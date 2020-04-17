@@ -8,12 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import and.fast.simple.R;
-import and.fast.simple.entities.ImageEntity;
+import and.fast.simple.data.entities.ImageEntity;
 import and.fast.widget.itemdecorationgroup.model.SpanSizeModel;
 import and.fast.widget.itemdecorationgroup.model.ModelProvider;
 import androidx.annotation.NonNull;
@@ -37,7 +39,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull AlbumAdapter.ViewHolder holder, final int position) {
         final ImageEntity item = mImageList.get(position);
-        holder.mIvAlbum.setBackgroundColor(item.getImageColor());
+        //holder.mIvAlbum.setBackgroundColor(item.getImageColor());
+
+        Glide.with(holder.mIvAlbum).load(item.getUrl()).into(holder.mIvAlbum);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         holder.mTvDate.setText(sdf.format(item.getTimestamp()));
@@ -51,6 +55,17 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
             }
 
         });
+    }
+
+    public void setNewData(List<ImageEntity> data){
+        mImageList.clear();
+        mImageList = data;
+        notifyDataSetChanged();
+    }
+
+    public void addData(List<ImageEntity> data){
+        mImageList.addAll(data);
+        notifyDataSetChanged();
     }
 
     @Override

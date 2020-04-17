@@ -6,16 +6,20 @@
     android:orientation="vertical">
 
     <ImageView
+        tools:background="@tools:sample/backgrounds/scenic"
+        android:scaleType="centerCrop"
         android:id="@+id/iv_album"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:background="#ddd" />
+        />
 
     <TextView
+        android:background="#66000000"
         android:textColor="#FFFFFF"
         android:gravity="center"
         android:textSize="12sp"
         android:id="@+id/tv_date"
+        tools:text="@tools:sample/date/ddmmyy"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
