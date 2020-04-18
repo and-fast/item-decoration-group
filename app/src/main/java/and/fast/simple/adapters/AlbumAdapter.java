@@ -39,12 +39,10 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull AlbumAdapter.ViewHolder holder, final int position) {
         final ImageEntity item = mImageList.get(position);
-        //holder.mIvAlbum.setBackgroundColor(item.getImageColor());
 
         Glide.with(holder.mIvAlbum).load(item.getUrl()).into(holder.mIvAlbum);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        holder.mTvDate.setText(sdf.format(item.getTimestamp()));
+        holder.mTvDate.setText(item.getCreatedAt());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
 

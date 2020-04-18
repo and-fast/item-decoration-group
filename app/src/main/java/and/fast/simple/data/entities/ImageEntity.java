@@ -23,6 +23,18 @@ public class ImageEntity implements SpanSizeModel {
         return spanSize;
     }
 
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
     @Override
     public void setSpanSize(int spanSize) {
         this.spanSize = spanSize;

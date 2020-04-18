@@ -17,12 +17,18 @@ public class DataStore implements LifecycleObserver {
 
     public void refresh(final AlbumAdapter albumAdapter, final SmartRefreshLayout smartRefreshLayout) {
         page = 1;
+        smartRefreshLayout.setEnableLoadMore(true);
         requestRetrofit(page, 10, new Callback<ImageListResponse>() {
 
             @Override
             public void onResponse(Call<ImageListResponse> call, Response<ImageListResponse> response) {
                 smartRefreshLayout.finishRefresh();
-                albumAdapter.setNewData(response.body().getData());
+                ImageListResponse body = response.body();
+                albumAdapter.setNewData(body.getData());
+
+                if (body.getPage() == body.getPage_count()){
+                    smartRefreshLayout.setEnableLoadMore(false);
+                }
             }
 
             @Override
@@ -38,7 +44,12 @@ public class DataStore implements LifecycleObserver {
             @Override
             public void onResponse(Call<ImageListResponse> call, Response<ImageListResponse> response) {
                 smartRefreshLayout.finishLoadMore();
-                albumAdapter.addData(response.body().getData());
+                ImageListResponse body = response.body();
+                albumAdapter.addData(body.getData());
+
+                if (body.getPage() == body.getPage_count()){
+                    smartRefreshLayout.setEnableLoadMore(false);
+                }
             }
 
             @Override
